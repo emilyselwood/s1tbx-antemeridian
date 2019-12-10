@@ -125,6 +125,9 @@ class Raw2Ard:
                     param['file'] = os.path.join(outname, 'subset_' + subset_name)
                     results.append(param['file'])
 
+                    # make sure the output directory exists just in case.
+                    os.makedirs(param['file'], exist_ok=True)
+
                     # transform dict back to xml schema
                     out = xmltodict.unparse(schema, pretty=True)
 
@@ -272,7 +275,6 @@ class Raw2Ard:
             param = self.getParameterSet(schema, 'Terrain-Flattening')
 
             param['sourceBands'] = ','.join(['Beta0_' + x for x in self._polarizations])
-            param['reGridMethod'] = True if self._external_dem is None else False
             pred_tc = 'Terrain-Flattening'
 
         else:

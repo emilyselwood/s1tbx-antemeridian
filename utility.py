@@ -1,5 +1,6 @@
 import logging
 import os
+import platform
 import re
 import sys
 import subprocess
@@ -93,11 +94,14 @@ def execute(name, arguments):
     create and execute sub-process
     """
 
+    base_env = os.environ.copy()
+    if "LD_LIBRARY_PATH" not in base_env and platform.system() != "Windows":
+        base_env["LD_LIBRARY_PATH"] = "."
     # create sub-process with argument list
-    p = subprocess.Popen([name] + arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = subprocess.Popen([name] + arguments, env=base_env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
     code = p.poll()
     logging.debug(out.decode("utf-8"))
     logging.debug(err.decode("utf-8"))
-
+    logging.info(f"return code: {code}")
     return out, err, code

@@ -3,4 +3,6 @@
 # -Xmx512m
 # To include another file, uncomment the following line:
 # -include-options [path to other .vmoption file]
--Xmx64g
+-Xmx11g
+-Xdebug
+-Xdump:java+heap+system+snap:events=user

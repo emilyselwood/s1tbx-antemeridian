@@ -145,8 +145,8 @@ class Raw2Ard:
                     start_row += chunk_size
 
             # mosaic subsets into single image
-            self.generateImage(out_path, results, 'vv')
-            self.generateImage(out_path, results, 'vh')
+            self.generateImage(out_path, results, 'VV')
+            self.generateImage(out_path, results, 'VH')
 
         # else:
 
